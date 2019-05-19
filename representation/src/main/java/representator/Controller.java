@@ -11,6 +11,15 @@ import javax.servlet.http.HttpServletRequest;
   // TODO: 16.05.19 change http to https, change the port to autoload
   private final static String AUTHORITY_URL = "http://localhost:7101/dumpfile/";
 
+  public Controller () {
+    System.out.println("constructor Controller");
+  }
+  {
+    System.out.println("nonstatic block");
+  }
+  static {
+    System.out.println("Static block");
+  }
   @RequestMapping(method = RequestMethod.GET)
   public String getPage (HttpServletRequest request) {
     String sid = request.getSession(true).getId();

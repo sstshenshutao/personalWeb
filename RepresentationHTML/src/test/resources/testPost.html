@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<style type="text/css">
+  @import "/static/css/toolbar.css";
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>toolbar test</title>
+</head>
+<body>
+    <input type="submit" id="submit_form" value="登录">
+
+<h1>"{\"appPart\":\"<p>this is a test index
+        page</p>\",\"drawApps\":[{\"link\":\"https://www.google.de\",\"name\":\"google1-2\",\"id\":1,
+    \"isChoosed\":true,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google2-3\",\"id\":2,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google3-2\",\"id\":3,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google4-1\",\"id\":4,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google5-3\",\"id\":5,\"isChoosed\":false,\"isRunning\":true}]}";</h1>
+<script src="jquery-1.11.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submit_form").click(function (e) {
+            var MyForm =
+                "{\"appPart\":\"<p>this is a test index page</p>\",\"drawApps\":[{\"link\":\"https://www.google.de\",\"name\":\"google1-2\",\"id\":1,\"isChoosed\":true,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google2-3\",\"id\":2,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google3-2\",\"id\":3,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google4-1\",\"id\":4,\"isChoosed\":false,\"isRunning\":true},{\"link\":\"https://www.google.de\",\"name\":\"google5-3\",\"id\":5,\"isChoosed\":false,\"isRunning\":true}]}";
+            console.log(MyForm);
+            $.ajax(
+                {
+                    url: "http://localhost:4443/representation/",
+                    type: "POST",
+                    data: MyForm,
+                });
+            e.preventDefault(); //STOP default action
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
