@@ -1,0 +1,33 @@
+//table webapps:
+create table webapps
+   (     
+   appid int primary key not null,
+   appname text not null,
+   applink text not null,
+   isrunning int not null,
+   owner int REFERENCES user (userid) not null,
+   accesslevel int REFERENCES userlevel (userlevel) not null
+   );
+
+
+//table user:
+create table user
+(
+	userid int primary key not null,
+	username text not null,
+	password text not null
+);
+
+//table userlevel:
+create table userlevel 
+(
+	userid REFERENCES user (userid) primary key not null,
+	userlevel int not null
+);
+
+//table session:
+create table session
+(
+	userid REFERENCES user (userid) primary key not null,
+	sid text
+);

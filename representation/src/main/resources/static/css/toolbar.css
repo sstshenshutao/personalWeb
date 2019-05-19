@@ -1,0 +1,32 @@
+:root {
+  --color-schema-1-hex: #FFF587;
+  --color-schema-2-hex: #FF8C64;
+  --color-schema-3-hex: #FF665A;
+  --color-schema-4-hex: #7D6B7D;
+  --color-schema-5-hex: #A3A1A8;
+}
+.cursor-hand{cursor:pointer;}
+.content {
+  color: var(--color-schema-2-hex);
+  border: 2px dotted var(--color-schema-5-hex);
+  padding: 1%;
+  margin-left: 15%;
+  min-height: 2000px;
+}
+
+.sidebar {
+  float: left;
+  width: 13%;
+  will-change: min-height;
+  color: var(--color-schema-4-hex);
+}
+
+.sidebar .sidebar__inner {
+  border: 2px dotted var(--color-schema-3-hex);
+  color: var(--color-schema-3-hex);
+  padding: 5%;
+  position: relative;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: position, transform;
+}
