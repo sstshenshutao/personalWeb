@@ -1,0 +1,102 @@
+!set default!
+CREATE TABLE table_name
+(
+  column1 datatype [ NULL | NOT NULL ],
+  column2 datatype [ NULL | NOT NULL ],
+  ...
+
+  CONSTRAINT fk_column
+    FOREIGN KEY (column1, column2, ... column_n)
+    REFERENCES parent_table (column1, column2, ... column_n)
+    ON DELETE SET NULL
+);
+----------------------------
+//table user_login:		ok
+create table user_login
+   (
+    uid int primary key not null,
+    password text not null,
+    CONSTRAINT fk_column 
+    	FOREIGN KEY (uid)
+    	REFERENCES user (userid)
+    	on delete cascade
+   );
+//test
+insert into user values(1,"a");
+insert into user values(2,"b");
+insert into user values(3,"c");
+insert into user values(4,"d");
+
+insert into user_login values(1,"passwd1");
+insert into user_login values(2,"passwd2");
+insert into user_login values(3,"passwd3");
+insert into user_login values(4,"passwd4");
+----------------------------
+
+
+//table user:
+create table user
+   (
+   userid int primary key not null,
+   username text not null
+   );
+//table user_login:
+create table user_login
+   (
+    uid int REFERENCES user (userid) primary key not null on delete cascade,
+	handy_number text REFERENCES user_security (handy_number) not null on update cascade,
+    email text REFERENCES user_security (email) not null on update cascade,
+    username text REFERENCES user_security (username) not null on update cascade,
+    password text not null
+   );
+
+//table user_security:
+create table user_security
+	(
+	uid int REFERENCES user (userid) primary key not null on delete cascade,
+	username text REFERENCES user(username) not null,
+	email text REFERENCES user_login(email) not null,
+	question1 text not null,
+	answer1 text not null,
+	question2 text not null,
+	answer2 text not null,
+	handy_number text REFERENCES user_login(handy_number) not null,
+	)
+
+//table user_level
+create table user_level
+	(
+	uid int REFERENCES user (userid) primary key not null,
+	user_manage_level int not null,
+	user_access_level int not null,
+	on delete cascade
+	)
+
+//table user_money
+create table user_money
+	(
+	uid int REFERENCES user (userid) primary key not null,
+	virtual_money int default 0,
+	on delete cascade
+	)
+
+//table user_info
+create table user_info
+	(
+	uid int REFERENCES user (userid) not null on delete cascade,
+	handy_number text REFERENCES user_security (handy_number) not null on update cascade,
+ 	email text REFERENCES user_security (email) not null on update cascade,
+    username text REFERENCES user_security (username) not null on update cascade,
+    hobbys text,
+    sex int,
+    age int,
+    job text,
+    nickname text,
+    homepage text,
+    head_photo data,
+    true_name text,
+    residence text,
+    country text,
+    birthday text,
+  	)
+   
