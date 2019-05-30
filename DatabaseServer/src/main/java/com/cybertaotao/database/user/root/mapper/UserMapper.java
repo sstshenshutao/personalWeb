@@ -1,9 +1,9 @@
-package com.cybertaotao.user.root.mapper;
+package com.cybertaotao.database.user.root.mapper;
 
-import com.cybertaotao.user.root.data.User;
+import com.cybertaotao.database.user.root.data.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
-import com.cybertaotao.TestUserDB;
+import com.cybertaotao.database.TestUserDB;
 
 import java.util.List;
 

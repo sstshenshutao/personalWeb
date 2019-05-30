@@ -1,10 +1,10 @@
-package com.cybertaotao;
+package com.cybertaotao.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.cybertaotao.user.root.service.UserService;
+import com.cybertaotao.database.user.root.service.UserService;
 
 @RestController @RequestMapping("/testUser") public class TestController {
 

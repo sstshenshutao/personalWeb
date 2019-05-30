@@ -1,7 +1,7 @@
-package com.cybertaotao.user.root;
+package com.cybertaotao.database.user.root;
 
-import com.cybertaotao.TestUserDB;
-import com.cybertaotao.user.root.service.UserService;
+import com.cybertaotao.database.TestUserDB;
+import com.cybertaotao.database.user.root.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

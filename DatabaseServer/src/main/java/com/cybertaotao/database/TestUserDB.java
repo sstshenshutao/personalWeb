@@ -1,4 +1,4 @@
-package com.cybertaotao;
+package com.cybertaotao.database;
 
 import javax.validation.constraints.NotNull;
 
