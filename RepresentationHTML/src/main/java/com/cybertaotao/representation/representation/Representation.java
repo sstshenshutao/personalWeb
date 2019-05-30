@@ -1,6 +1,6 @@
-package representation.representation;
+package com.cybertaotao.representation.representation;
 
-import dataStructure.DumpFile;
+import com.cybertaotao.dataStructure.DumpFile;
 
 public interface Representation {
 

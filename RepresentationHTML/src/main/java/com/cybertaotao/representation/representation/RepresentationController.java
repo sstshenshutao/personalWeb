@@ -1,6 +1,8 @@
-package representation.representation;
+package com.cybertaotao.representation.representation;
 
-import dataStructure.DumpFile;
+import com.cybertaotao.dataStructure.DumpFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,23 +10,19 @@ import java.util.List;
 
 @RestController @RequestMapping("/representation") public class RepresentationController {
 
-  // TODO: 16.05.19 change http to https, change the port to autoload in "@init()"
-  private final static String AUTHORITY_URL = "http://localhost:7101/dumpfile/";
-  private final static String TEMPLATE_FILE_NAME = "/Users/shenshutao/newWeb/representation/src/main/resources/html/template.html";
-
   private List<Representation> representations;
   private Representation currentRepresentation;
 
-  public RepresentationController () {
-    init();
+  public RepresentationController (@Value("${mySetting.defaultTemplate}") String defaultTemplate) {
+    init(defaultTemplate);
   }
 
   /**
    * init all of the variables
    */
-  private void init () {
+  private void init (String defaultTemplate) {
     this.representations = new ArrayList<>();
-    representations.add(WebRepresentation.createWebRepresentationWithTemplate(TEMPLATE_FILE_NAME));
+    representations.add(WebRepresentation.createWebRepresentationWithTemplate(defaultTemplate));
     currentRepresentation = representations.get(0);
   }
 
@@ -68,7 +66,7 @@ import java.util.List;
   public String getDefault () {
     //    String sid = request.getSession(true).getId();
     //    System.out.println("justsid|" + sid);
-    return this.currentRepresentation.render("", "");
+    return this.currentRepresentation.render("", "<p>This is the default page</p>");
   }
 
   /**

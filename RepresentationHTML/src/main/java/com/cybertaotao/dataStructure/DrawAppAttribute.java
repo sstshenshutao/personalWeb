@@ -1,4 +1,4 @@
-package dataStructure;
+package com.cybertaotao.dataStructure;
 
 import java.io.Serializable;
 

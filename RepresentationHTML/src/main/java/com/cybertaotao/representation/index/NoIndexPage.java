@@ -1,4 +1,4 @@
-package api;
+package com.cybertaotao.representation.index;
 
 public class NoIndexPage {
   public String message;

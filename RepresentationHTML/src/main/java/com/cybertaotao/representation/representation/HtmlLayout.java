@@ -1,4 +1,4 @@
-package representation.representation;
+package com.cybertaotao.representation.representation;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attributes;
@@ -196,10 +196,5 @@ public class HtmlLayout {
     return retEle;
   }
 
-  public static void main (String[] args) {
-    HtmlLayout htmlLayout = HtmlLayout
-      .parseTemplateHtml("/Users/shenshutao/WebstormProjects/untitled/src/toolbar" + ".html");
-    System.out.println(htmlLayout.sidebarApp);
-  }
 
 }

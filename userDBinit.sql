@@ -1,48 +1,48 @@
-!set default! grammar
+-- !set default! grammar
 
-CREATE TABLE table_name
-(
-  column1 datatype [ NULL | NOT NULL ],
-  column2 datatype [ NULL | NOT NULL ],
-  ...
+-- CREATE TABLE table_name
+-- (
+--   column1 datatype [ NULL | NOT NULL ],
+--   column2 datatype [ NULL | NOT NULL ],
+--   ...
 
-  CONSTRAINT fk_column
-    FOREIGN KEY (column1, column2, ... column_n)
-    REFERENCES parent_table (column1, column2, ... column_n)
-    ON DELETE SET NULL
-);
-------------test part----------------
-//table user_login:		ok
-create table user_login
-   (
-    uid int primary key not null,
-    password varchar(255) not null,
-    CONSTRAINT fk_column 
-    	FOREIGN KEY (uid)
-    	REFERENCES user (uid)
-    	on delete cascade
-   );
-//test
-insert into user values(1,"a");
-insert into user values(2,"b");
-insert into user values(3,"c");
-insert into user values(4,"d");
+--   CONSTRAINT fk_column
+--     FOREIGN KEY (column1, column2, ... column_n)
+--     REFERENCES parent_table (column1, column2, ... column_n)
+--     ON DELETE SET NULL
+-- );
+-- ------------test part----------------
+-- //table user_login:		ok
+-- create table user_login
+--    (
+--     uid int primary key not null,
+--     password varchar(255) not null,
+--     CONSTRAINT fk_column 
+--     	FOREIGN KEY (uid)
+--     	REFERENCES user (uid)
+--     	on delete cascade
+--    );
+-- //test
+-- insert into user values(1,"a");
+-- insert into user values(2,"b");
+-- insert into user values(3,"c");
+-- insert into user values(4,"d");
 
-insert into user_security(uid,username,password,email,handy_number) values(1,"a","passwd1","e1","h1");
-insert into user_security(uid,username,password,email,handy_number) values(2,"b","passwd2","e2","h2");
-insert into user_security(uid,username,password,email,handy_number) values(3,"c","passwd3","e3","h3");
-insert into user_security(uid,username,password,email,handy_number) values(4,"d","passwd4","e4","h4");
+-- insert into user_security(uid,username,password,email,handy_number) values(1,"a","passwd1","e1","h1");
+-- insert into user_security(uid,username,password,email,handy_number) values(2,"b","passwd2","e2","h2");
+-- insert into user_security(uid,username,password,email,handy_number) values(3,"c","passwd3","e3","h3");
+-- insert into user_security(uid,username,password,email,handy_number) values(4,"d","passwd4","e4","h4");
 
-insert into user_login values(1,1,1,1,1);
-insert into user_login values(2,0,0,0,0);
-insert into user_login values(3,0,0,0,0);
-insert into user_login values(4,0,0,0,0);
---------------test part end--------------
-
-
+-- insert into user_login values(1,1,1,1,1);
+-- insert into user_login values(2,0,0,0,0);
+-- insert into user_login values(3,0,0,0,0);
+-- insert into user_login values(4,0,0,0,0);
+-- --------------test part end--------------
 
 
----------------instructions:--------------
+
+
+-- ---------------instructions:--------------
 
 create table user
    (
@@ -114,8 +114,6 @@ create table user_info
 		on delete cascade
 		on update cascade
   	);
-
------------------------关系类----------------------
 
 create table user_login
 (

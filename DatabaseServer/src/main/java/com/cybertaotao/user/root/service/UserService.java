@@ -1,9 +1,9 @@
-package com.cybertaotao.user.service;
+package com.cybertaotao.user.root.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cybertaotao.TestUserDB;
-import com.cybertaotao.user.mapper.UserMapper;
+import com.cybertaotao.user.root.mapper.UserMapper;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package representation.representation;
+package com.cybertaotao.representation.representation;
 
-import dataStructure.DrawAppAttribute;
-import dataStructure.DumpFile;
+import com.cybertaotao.dataStructure.DrawAppAttribute;
+import com.cybertaotao.dataStructure.DumpFile;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;

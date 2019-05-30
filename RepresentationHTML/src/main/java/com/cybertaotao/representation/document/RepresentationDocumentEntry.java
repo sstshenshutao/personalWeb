@@ -1,4 +1,4 @@
-package representation.document;
+package com.cybertaotao.representation.document;
 
 public class RepresentationDocumentEntry {
 

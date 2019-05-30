@@ -1,6 +1,5 @@
-import dataStructure.DrawAppAttribute;
-import dataStructure.DumpFile;
-import org.springframework.http.HttpEntity;
+import com.cybertaotao.dataStructure.DrawAppAttribute;
+import com.cybertaotao.dataStructure.DumpFile;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class TestPostPage {
     drawAppAttributes.add(d);
     drawAppAttributes.add(d2);
     String a=restTemplate
-      .postForObject("http://localhost:4443/representation/",new DumpFile("test", drawAppAttributes), String.class);
+      .postForObject("http://localhost:4443/com.cybertaotao.representation/",new DumpFile("test", drawAppAttributes), String.class);
     System.out.println(a);
   }
 

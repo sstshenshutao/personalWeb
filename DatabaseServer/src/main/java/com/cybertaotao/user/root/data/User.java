@@ -1,4 +1,4 @@
-package com.cybertaotao.user.data;
+package com.cybertaotao.user.root.data;
 
 public class User {
   int uid;

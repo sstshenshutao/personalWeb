@@ -1,6 +1,4 @@
-package representation.document;
-
-import java.util.List;
+package com.cybertaotao.representation.document;
 
 public class DocumentEntry {
 
