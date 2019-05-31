@@ -5,19 +5,13 @@ import java.util.stream.Collectors;
 public class GenerateCode {
 
   public static void main (String[] args) {
-    String className="user_security";
-    String classNameJAVA="UserSecurity";
-    String databaseSTr="+--------------+--------------+------+-----+---------+-------+\n"
-      + "| uid          | int(11)      | NO   | PRI | NULL    |       |\n"
-      + "| username     | varchar(20)  | NO   | UNI | NULL    |       |\n"
-      + "| email        | varchar(50)  | NO   | UNI | NULL    |       |\n"
-      + "| question1    | varchar(255) | YES  |     |         |       |\n"
-      + "| answer1      | varchar(255) | YES  |     |         |       |\n"
-      + "| question2    | varchar(255) | YES  |     |         |       |\n"
-      + "| answer2      | varchar(255) | YES  |     |         |       |\n"
-      + "| handy_number | varchar(20)  | NO   | UNI | NULL    |       |\n"
-      + "| password     | varchar(255) | NO   |     | NULL    |       |\n"
-      + "+--------------+--------------+------+-----+---------+-------+";
+    String className="user_login";
+    String classNameJAVA="UserLogin";
+    String databaseSTr="| uid                | int(11)    | NO   | PRI | NULL    |       |\n"
+      + "| username_allow     | tinyint(1) | YES  |     | 0       |       |\n"
+      + "| email_allow        | tinyint(1) | YES  |     | 0       |       |\n"
+      + "| handy_number_allow | tinyint(1) | YES  |     | 0       |       |\n"
+      + "| login_allow        | tinyint(1) | YES  |     | 0       |       |";
     List<String> everyLine=Arrays.asList(databaseSTr.split("\n"));
     everyLine=everyLine.stream().filter(x->!x.startsWith("+")).collect(Collectors.toList());
     List<GeneCodeDS> parseList = everyLine.stream().map(x->{
@@ -27,7 +21,7 @@ public class GenerateCode {
       if(index>=0){
         tmp=tmp.substring(0,index);
       }
-      GeneCodeDS obj= new GeneCodeDS(xs[1].trim(),tmp.contains("varchar")?tmp.contains("tinyint")?"boolean":"String":
+      GeneCodeDS obj= new GeneCodeDS(xs[1].trim(),tmp.contains("varchar")?"String":tmp.contains("tinyint")?"boolean":
                                                   tmp);
       obj.varNonNull = xs[3].trim().equals("NO")?true:false;
       return obj;
@@ -117,5 +111,42 @@ public class GenerateCode {
     serviceString+="public boolean deleteEntry (Integer uid) {\n" + "    return dao.delete(uid);\n" + "  }\n";
     serviceString+="}";
     System.out.println(serviceString);
+    System.out.println();
+    //controller
+    String controllerStr = "";
+    int controller_index = className.lastIndexOf("_");
+    String branch = className.substring(controller_index+1);
+    controllerStr+="@RestController @RequestMapping(\"/user/"+branch+"\") public class "+classNameJAVA+"Controller {\n";
+    controllerStr+="private final "+classNameJAVA+"Service service;\n";
+    controllerStr+="@Autowired\n" + "  public "+classNameJAVA+"Controller ("+classNameJAVA+"Service service) {\n"
+      + "    this.service = service;\n" + "  }\n";
+    controllerStr+="@RequestMapping(method = RequestMethod.GET)\n" + "  public Object index () {\n"
+      + "    return service.selectAllEntries();\n" + "  }\n";
+    controllerStr+="  @RequestMapping(value = \"/{id}\",\n" + "                  method = RequestMethod.GET)\n"
+      + "  public Object getIDIndex (@PathVariable(\"id\") int id) {\n" + "    return service.select"+classNameJAVA+"(id);\n"
+      + "  }\n";
+
+    StringBuffer attributeCaseBF= new StringBuffer();
+    parseList.stream().sequential().forEach(x->{
+      String firstUP=Character.toUpperCase(x.varName.charAt(0))+x.varName.substring(1,x.varName.length());
+      attributeCaseBF.append("case \""+x.varName+"\":\n" + "        return service."+(x.varType.equals("boolean")?"is"+firstUP:"get"+ firstUP)+"(id);\n");
+      });
+    String attributeCaseStr=attributeCaseBF.toString();
+    controllerStr+="  @RequestMapping(value = \"/{id}/{attribute}\",\n"
+      + "                  method = RequestMethod.GET)\n"
+      + "  public Object getAttribute (@PathVariable(\"id\") int id, @PathVariable(\"attribute\") String attribute) {\n"
+      + "    switch (attribute) {\n"+ attributeCaseStr+ "    }\n" + "    return HttpStatus.BAD_REQUEST;\n" + "  }\n";
+    controllerStr+=" @RequestMapping(value = \"/{id}\",\n" + "                  method = RequestMethod.POST)\n"
+      + "  public Object postChangeAttributes (@PathVariable(\"id\") int id, @RequestBody "+classNameJAVA+" entry) {\n"
+      + "    if (id == entry.getUid()) {\n" + "      if (service.select"+classNameJAVA+"(id) == null) {\n"
+      + "        service.insert"+classNameJAVA+"(entry);\n" + "      } else {\n" + "        service.updateEntry(entry);\n"
+      + "      }\n" + "      return service.select"+classNameJAVA+"(id);\n" + "    }\n" + "    return null;\n" + "  "
+      + "}\n";
+    controllerStr+="  @RequestMapping(method = RequestMethod.DELETE,\n" + "                  value = \"/{uid}\")\n"
+      + "  public Object deleteOneEntry (@PathVariable(\"uid\") int uid) {\n"
+      + "    if (service.select"+classNameJAVA+"(uid) != null) {\n" + "      service.deleteEntry(uid);\n"
+      + "      return true;\n" + "    }\n" + "    return HttpStatus.BAD_REQUEST;\n" + "  }\n";
+    controllerStr+="}\n";
+    System.out.println(controllerStr);
   }
 }

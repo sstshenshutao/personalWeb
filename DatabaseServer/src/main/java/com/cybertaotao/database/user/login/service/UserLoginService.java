@@ -8,48 +8,39 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service public class UserLoginService {
-
   private final UserLoginMapper dao;
-
   @Autowired
   public UserLoginService (UserLoginMapper dao) {
     this.dao = dao;
   }
-
-  public boolean insertLoginConstraint (UserLogin userLogin) {
-    return dao.insert(userLogin);
+  public boolean insertUserLogin (UserLogin model) {
+    return dao.insert(model);
   }
-
-  public UserLogin selectLoginConstraint (int uid) {
+  public UserLogin selectUserLogin (int uid) {
     return dao.select(uid);
   }
-
-  public boolean isUsernameAllow (int uid) {
-    return selectLoginConstraint(uid).isUsername_allow();
+  public int getUid (int uid) {
+    return selectUserLogin(uid).getUid();
   }
-
-  public boolean isEmailAllow (int uid) {
-    return selectLoginConstraint(uid).isEmail_allow();
+  public boolean isUsername_allow (int uid) {
+    return selectUserLogin(uid).isUsername_allow();
   }
-
-  public boolean isHandyNumberAllow (int uid) {
-    return selectLoginConstraint(uid).isHandy_number_allow();
+  public boolean isEmail_allow (int uid) {
+    return selectUserLogin(uid).isEmail_allow();
   }
-
-  public boolean isLoginAllow (int uid) {
-    return selectLoginConstraint(uid).isLogin_allow();
+  public boolean isHandy_number_allow (int uid) {
+    return selectUserLogin(uid).isHandy_number_allow();
   }
-
+  public boolean isLogin_allow (int uid) {
+    return selectUserLogin(uid).isLogin_allow();
+  }
   public List<UserLogin> selectAllEntries () {
     return dao.selectAll();
   }
-
   public int updateEntry (UserLogin model) {
     return dao.update(model);
   }
-
   public boolean deleteEntry (Integer uid) {
     return dao.delete(uid);
   }
-
 }

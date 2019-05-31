@@ -55,7 +55,7 @@ import java.util.List;
     if (user.getUid() != uid) {
       return HttpStatus.BAD_REQUEST;
     } else {
-      if (service.selectUser(uid) != null) {
+      if (service.selectUser(uid) == null) {
         service.addUser(user);
       } else {
         service.updateUsername(user);

@@ -1,16 +1,20 @@
-package com.cybertaotao.database.user.login;
+package com.cybertaotao.database.user.level;
 
-import com.cybertaotao.database.user.login.data.UserLogin;
-import com.cybertaotao.database.user.login.service.UserLoginService;
+import com.cybertaotao.database.user.level.data.UserLevel;
+import com.cybertaotao.database.user.level.service.UserLevelService;
 import com.cybertaotao.database.user.root.data.User;
+import com.cybertaotao.database.user.root.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController @RequestMapping("/user/login") public class UserLoginController {
-  private final UserLoginService service;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+@RestController @RequestMapping("/user/level") public class UserLevelController {
+  private final UserLevelService service;
   @Autowired
-  public UserLoginController (UserLoginService service) {
+  public UserLevelController (UserLevelService service) {
     this.service = service;
   }
   @RequestMapping(method = RequestMethod.GET)
@@ -20,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
   @RequestMapping(value = "/{id}",
                   method = RequestMethod.GET)
   public Object getIDIndex (@PathVariable("id") int id) {
-    return service.selectUserLogin(id);
+    return service.selectUserLevel(id);
   }
   @RequestMapping(value = "/{id}/{attribute}",
                   method = RequestMethod.GET)
@@ -28,34 +32,30 @@ import org.springframework.web.bind.annotation.*;
     switch (attribute) {
       case "uid":
         return service.getUid(id);
-      case "username_allow":
-        return service.isUsername_allow(id);
-      case "email_allow":
-        return service.isEmail_allow(id);
-      case "handy_number_allow":
-        return service.isHandy_number_allow(id);
-      case "login_allow":
-        return service.isLogin_allow(id);
+      case "manage_level":
+        return service.getManage_level(id);
+      case "access_level":
+        return service.getAccess_level(id);
     }
     return HttpStatus.BAD_REQUEST;
   }
   @RequestMapping(value = "/{id}",
                   method = RequestMethod.POST)
-  public Object postChangeAttributes (@PathVariable("id") int id, @RequestBody UserLogin entry) {
+  public Object postChangeAttributes (@PathVariable("id") int id, @RequestBody UserLevel entry) {
     if (id == entry.getUid()) {
-      if (service.selectUserLogin(id) == null) {
-        service.insertUserLogin(entry);
+      if (service.selectUserLevel(id) == null) {
+        service.insertUserLevel(entry);
       } else {
         service.updateEntry(entry);
       }
-      return service.selectUserLogin(id);
+      return service.selectUserLevel(id);
     }
     return null;
   }
   @RequestMapping(method = RequestMethod.DELETE,
                   value = "/{uid}")
   public Object deleteOneEntry (@PathVariable("uid") int uid) {
-    if (service.selectUserLogin(uid) != null) {
+    if (service.selectUserLevel(uid) != null) {
       service.deleteEntry(uid);
       return true;
     }

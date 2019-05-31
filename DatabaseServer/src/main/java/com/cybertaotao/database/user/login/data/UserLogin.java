@@ -2,15 +2,13 @@ package com.cybertaotao.database.user.login.data;
 
 import javax.validation.constraints.NotNull;
 
-public class UserLogin {
+public class UserLogin{
   @NotNull
   int uid;
   boolean username_allow;
   boolean email_allow;
   boolean handy_number_allow;
   boolean login_allow;
-
-//  uid | username_allow | email_allow | handy_number_allow | login_allow
 
   public int getUid () {
     return uid;
