@@ -56,11 +56,11 @@ import java.util.List;
       return HttpStatus.BAD_REQUEST;
     } else {
       if (service.selectUser(uid) != null) {
-        service.addUser(user);
+        return HttpStatus.BAD_REQUEST;
       } else {
-        service.updateUsername(user);
+        service.addUser(user);
+        return service.selectUser(uid);
       }
-      return service.selectUser(uid);
     }
   }
 

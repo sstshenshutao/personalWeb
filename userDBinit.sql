@@ -43,7 +43,10 @@
 
 
 -- ---------------instructions:--------------
-
+-- check the current time_zone and the session time_zone
+SET GLOBAL time_zone ="+02:00";
+SELECT @@global.time_zone, @@session.time_zone;
+-- build tables
 create table user
    (
    uid int unique not null,

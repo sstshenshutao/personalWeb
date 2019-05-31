@@ -1,37 +1,30 @@
-package com.cybertaotao.database.user.root.mapper;
+package com.cybertaotao.database.user.login.mapper;
 
-import com.cybertaotao.database.user.root.data.User;
+import com.cybertaotao.database.user.login.data.UserLogin;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper @Component public interface UserMapper {
+@Mapper @Component public interface UserLoginMapper {
 
-  /**
-   * for http post
-   *
-   * @return true if success
-   */
-  @Insert("INSERT INTO `user`(uid,username) VALUES(#{uid},#{username})")
-  boolean insert (User user);
+  //    uid | username_allow | email_allow | handy_number_allow | login_allow
+  @Insert("INSERT INTO `user_login`(uid,username_allow,email_allow,handy_number_allow,login_allow) "
+            + "VALUES(#{uid},#{username_allow},#{email_allow},#{handy_number_allow},#{login_allow})")
+  boolean insert (UserLogin userLogin);
 
-  /**
-   * for http delete
-   *
-   * @return true
-   */
-  @Delete("DELETE FROM `user` WHERE uid=#{uid}")
+  @Delete("DELETE FROM `user_login` WHERE uid=#{uid}")
   boolean delete (Integer uid);
 
-  @Select("SELECT * FROM `user` WHERE uid=#{uid}")
-  User select (int uid);
+  @Select("SELECT * FROM `user_login` WHERE uid=#{uid}")
+  UserLogin select (int uid);
 
-  @Select("SELECT * FROM `user`")
-  List<User> selectAll ();
+  @Select("SELECT * FROM `user_login`")
+  List<UserLogin> selectAll ();
 
-  @Update("UPDATE `user` SET username=#{username} WHERE uid=#{uid}")
-  int updateUsername (User user);
+  @Update("UPDATE `user_login` SET username_allow=#{username_allow}" + ", handy_number_allow=#{handy_number_allow}"
+            + ", email_allow=#{email_allow}" + ", login_allow=#{login_allow}" + " WHERE uid=#{uid}")
+  int update (UserLogin userLogin);
   //
   //  // 插入 并返回自增ID
   //  @Insert("INSERT INTO user(userid, username, password) VALUES(#{userid}, #{username}, #{password})")
